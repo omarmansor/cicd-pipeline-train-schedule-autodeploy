@@ -6,9 +6,13 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
+        DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
     stages {
         stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
@@ -19,8 +23,8 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            environment { 
-                DOCKER_HUB_LOGIN = 'docker_hub_login'
+            when {
+                branch 'master'
             }
             steps {
                 script {
