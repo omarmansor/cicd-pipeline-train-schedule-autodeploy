@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
     tools {
-        Gradle "Gradle"
+        gradle "mygradle"
     }
     stages {
         stage('Build') {
