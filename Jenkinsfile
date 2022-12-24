@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
     tools {
-        JDK 'myjava'
+        jdk "myjava"
     }
     stages {
         stage('Build') {
