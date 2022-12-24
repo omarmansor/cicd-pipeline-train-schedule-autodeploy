@@ -4,6 +4,9 @@ pipeline {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
+    tools {
+        JDK 'myjava'
+    }
     stages {
         stage('Build') {
             steps {
