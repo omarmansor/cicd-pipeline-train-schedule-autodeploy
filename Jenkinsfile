@@ -4,11 +4,14 @@ pipeline {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
-    tools {
-        jdk "myjava"
-    }
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'gradle:4.6-jdk8'
+                    reuseNode true
+                }
+            }
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
