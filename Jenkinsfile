@@ -1,9 +1,5 @@
 pipeline {
     agent any
-        tools {
-        jdk "myjava"
-    }
-
     environment {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'docker_hub_login'
@@ -27,6 +23,37 @@ pipeline {
                         app.push("latest")
                     }
                 }
+            }
+        }
+        stage('CanaryDeploy') {
+            environment { 
+                CANARY_REPLICAS = 1
+            }
+            steps {
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'train-schedule-kube-canary.yml',
+                    enableConfigSubstitution: true
+                )
+            }
+        }
+        stage('DeployToProduction') {
+            environment { 
+                CANARY_REPLICAS = 0
+            }
+            steps {
+                input 'Deploy to Production?'
+                milestone(1)
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'train-schedule-kube-canary.yml',
+                    enableConfigSubstitution: true
+                )
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'train-schedule-kube.yml',
+                    enableConfigSubstitution: true
+                )
             }
         }
     }
