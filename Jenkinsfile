@@ -19,8 +19,7 @@ pipeline {
             }
             steps {
                 echo 'Running build automation'
-                sh 'npm -version'
-                sh './gradlew build -s --no-daemon'
+                sh 'gradle build -s --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
