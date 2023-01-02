@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'Test-Server' }
     environment {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'docker_hub_login'
@@ -10,13 +10,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'gradle:4.6-jre8'
-                    reuseNode true
-                    args "-v /tmp/maven:/var/maven/.m2 -e MAVEN_CONFIG=/var/maven/.m2"
-                }
-            }
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
