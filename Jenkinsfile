@@ -10,9 +10,16 @@ pipeline {
     // }
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'knsit/gradle:4.6.0-jdk8-alpine'
+                    reuseNode true
+                    // args "-v /tmp/maven:/var/maven/.m2 -e MAVEN_CONFIG=/var/maven/.m2"
+                }
+            }
             steps {
                 echo 'Running build automation'
-                sh './gradlew build --no-daemon'
+                sh 'gradle build --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
