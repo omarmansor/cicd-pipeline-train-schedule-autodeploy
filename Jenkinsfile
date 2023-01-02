@@ -14,13 +14,13 @@ pipeline {
                 docker {
                     image 'knsit/gradle:4.6.0-jdk8-alpine'
                     reuseNode true
-                    // args "-v /tmp/maven:/var/maven/.m2 -e MAVEN_CONFIG=/var/maven/.m2"
+                    // args "-v ./:/app bitnami/gradle"
                 }
             }
             steps {
                 echo 'Running build automation'
                 sh 'gradle -version'
-                sh './gradlew build --no-daemon'
+                sh 'gradle build --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
