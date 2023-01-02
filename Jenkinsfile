@@ -9,6 +9,20 @@ pipeline {
         jdk "myjava"
     }
     stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'gradle:4.6-jre8'
+                    reuseNode true
+                    args "-v /tmp/maven:/var/maven/.m2 -e MAVEN_CONFIG=/var/maven/.m2"
+                }
+            }
+            steps {
+                echo 'Running build automation'
+                sh './gradlew build --no-daemon'
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
