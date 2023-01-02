@@ -12,14 +12,14 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'knsit/gradle:4.6.0-jdk8-alpine'
+                    image 'gradle:4.6-jdk8'
                     reuseNode true
                     // args "-v ./:/app bitnami/gradle"
                 }
             }
             steps {
                 echo 'Running build automation'
-                sh 'gradle -version'
+                sh 'npm -version'
                 sh './gradlew build -s --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
