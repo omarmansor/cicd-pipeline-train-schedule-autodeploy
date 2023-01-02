@@ -9,7 +9,13 @@ pipeline {
         jdk "myjava"
     }
     stages {
-
+        stage('Build') {
+            steps {
+                echo 'Running build automation'
+                sh 'gradle build --no-daemon'
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
