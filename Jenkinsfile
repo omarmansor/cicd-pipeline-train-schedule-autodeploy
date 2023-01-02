@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'gradle:4.6-jdk8'
+                    image 'amazonlinux:latest'
                     reuseNode true
                     // args "-v ./:/app bitnami/gradle"
                 }
