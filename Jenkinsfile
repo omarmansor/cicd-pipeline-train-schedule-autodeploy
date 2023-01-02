@@ -4,10 +4,10 @@ pipeline {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'docker_hub_login'
     }
-    // tools {
-        //gradle "mygradle"
+    tools {
+        gradle "mygradle"
         // jdk "myjava"
-    // }
+    }
     stages {
         stage('Build') {
             steps {
