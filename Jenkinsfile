@@ -6,7 +6,7 @@ pipeline {
     }
     tools {
         gradle "mygradle"
-        jdk "myjava"
+        // jdk "myjava"
     }
     stages {
         stage('Build') {
