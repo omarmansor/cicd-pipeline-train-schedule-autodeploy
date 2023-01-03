@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
-        DOCKER_HUB_LOGIN = 'dockerhublogin'
+        DOCKER_HUB_LOGIN = 'dockerhub'
     }
     tools {
         gradle "mygradle"
