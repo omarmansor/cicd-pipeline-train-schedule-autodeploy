@@ -10,16 +10,8 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'amazonlinux:latest'
-                    reuseNode true
-                    // args "-v ./:/app bitnami/gradle"
-                }
-            }
+            agent { label 'Test-Server' }
             steps {
-                
-                sh 'yum install java-1.8.0-openjdk-devel'
                 echo 'Running build automation'
                 sh './gradlew build -s --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
