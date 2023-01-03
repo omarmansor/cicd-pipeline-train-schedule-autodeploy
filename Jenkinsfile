@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'Test-Server' }
     environment {
         DOCKER_IMAGE_NAME = "omarmansor/train-schedule"
         DOCKER_HUB_LOGIN = 'dockerhub'
@@ -10,7 +10,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent { label 'Test-Server' }
             steps {
                 echo 'Running build automation'
                 sh './gradlew build -s --no-daemon'
